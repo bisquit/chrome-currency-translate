@@ -1,0 +1,84 @@
+{
+  "name": "chrome-currency-translate",
+  "description": "Translate money to the specific currency",
+  "version": "0.0.0",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@chakra-ui/react": "^2.6.1",
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mantine/core": "^6.0.11",
+    "@mantine/hooks": "^6.0.11",
+    "@picocss/pico": "^1.5.10",
+    "@types/chrome": "^0.0.236",
+    "@unocss/reset": "^0.52.2",
+    "@whyframe/core": "^0.1.10",
+    "@whyframe/jsx": "^0.1.9",
+    "daisyui": "^2.51.6",
+    "framer-motion": "^10.12.14",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "unocss-preset-daisy": "^4.0.0"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.17",
+    "@types/react": "^18.0.28",
+    "@types/react-dom": "^18.0.11",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@unocss/preset-uno": "^0.52.3",
+    "@vitejs/plugin-react": "^4.0.0",
+    "eslint": "^8.38.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.3.4",
+    "typescript": "^5.0.2",
+    "unocss": "^0.52.1",
+    "vite": "^4.3.2"
+  },
+  "prettier": {
+    "editorconfig": true,
+    "singleQuote": true
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "browser": true,
+      "es2020": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module"
+    },
+    "plugins": [
+      "@typescript-eslint",
+      "react-refresh"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react-hooks/recommended"
+    ],
+    "rules": {
+      "@typescript-eslint/no-unused-vars": 0,
+      "@typescript-eslint/no-explicit-any": 0,
+      "@typescript-eslint/explicit-module-boundary-types": 0,
+      "@typescript-eslint/no-non-null-assertion": 0,
+      "react-refresh/only-export-components": "warn"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bisquit/chrome-currency-translate.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bisquit/chrome-currency-translate/issues"
+  }
+}
