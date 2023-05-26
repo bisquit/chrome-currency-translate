@@ -1,8 +1,3 @@
-import { createRoot } from 'react-dom/client';
-import { insertPopup } from './insertPopup';
-import React from 'react';
-import Popup from './Popup';
-
 chrome.runtime.onInstalled.addListener(() => {
   console.log('onInstalled');
   chrome.contextMenus.create(
@@ -19,34 +14,21 @@ chrome.runtime.onInstalled.addListener(() => {
   );
 });
 
-chrome.contextMenus.onClicked.addListener((info, tab) => {
+chrome.contextMenus.onClicked.addListener(async (info, tab) => {
+  if (!tab || !tab.id) {
+    return;
+  }
   switch (info.menuItemId) {
     case 'translate_selected_money':
       console.log('translate clicked', tab);
-      if (tab && tab.id) {
-        // chrome.scripting.executeScript({
-        //   target: { tabId: tab.id },
-        //   // files: ['src/content.tsx'],
-        //   // func: insertPopup,
-        //   // func: function () {
-        //   //   console.log('func');
-        //   //   insertPopup(document);
-        //   //   // const root = document.createElement('div');
-        //   //   // root.id = 'crx-root';
-        //   //   // document.body.append(root);
-        //   // },
-        //   func: () => {
-        //     console.log('insertPopup', document);
-        //     const root = document.createElement('div');
-        //     root.id = 'crx-root';
-        //     document.body.append(root);
-        //     const shadowRoot = root.attachShadow({ mode: 'open' });
-        //     const host = document.createElement('div');
-        //     shadowRoot.appendChild(host);
-        //     createRoot(host).render(<Popup />);
-        //   },
-        // });
-      }
+      // await chrome.action.openPopup();
+      // chrome.action.setPopup({ tabId: tab.id, popup: 'index.html' });
+      // await chrome.scripting.executeScript({
+      //   target: { tabId: tab.id },
+      //   func: () => {
+      //     console.log('content');
+      //   },
+      // });
       break;
   }
 });

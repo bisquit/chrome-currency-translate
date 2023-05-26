@@ -15,10 +15,16 @@ const manifest = defineManifest({
     service_worker: 'src/background.tsx',
     type: 'module',
   },
+  content_scripts: [
+    {
+      js: ['src/content-script.tsx'],
+      matches: ['https://*/*'],
+    },
+  ],
   icons: {
-    '16': 'assets/icon.png',
-    '48': 'assets/icon.png',
-    '128': 'assets/icon.png',
+    '16': 'assets/icon.128x128.png',
+    '48': 'assets/icon.128x128.png',
+    '128': 'assets/icon.128x128.png',
   },
 });
 

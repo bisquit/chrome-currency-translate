@@ -1,28 +1,72 @@
-import { MouseEvent } from 'react';
-import { openLink } from './utils/open-link';
+import { useEffect, useMemo, useState } from 'react';
+import { getCurrentTab } from './utils/chrome/get-current-tab';
+import { openLink } from './utils/chrome/open-link';
+import { getCurrencyRate } from './utils/get-currency-rate';
 
 function App() {
-  const handleLinkClick = (e: MouseEvent<HTMLAnchorElement>) => {
-    openLink(e.currentTarget.href);
+  const [selectedMoney, setSelectedMoney] = useState<number>();
+  const [fromCurrency, setFromCurrency] = useState<string>();
+  const [toCurrency, setToCurrency] = useState<string>();
+  const [rate, setRate] = useState<{ date: string; value: number }>();
+
+  const translatedMoney = useMemo(() => {
+    if (!rate || !selectedMoney) {
+      return undefined;
+    }
+
+    return selectedMoney * rate.value;
+  }, [rate, selectedMoney]);
+
+  const getSelection = async () => {
+    const currentTabId = (await getCurrentTab())?.id;
+    if (!currentTabId) {
+      return;
+    }
+
+    const { selection } = await chrome.tabs.sendMessage(currentTabId, {
+      type: 'CURRENCY_TRANSLATE.HELLO',
+    });
+
+    // TODO: sanitize, retrive from currency
+
+    const selectedMoney = 8.25;
+    const fromCurrency = 'usd';
+    const toCurrency = 'jpy';
+    setSelectedMoney(selectedMoney);
+    setFromCurrency(fromCurrency);
+    setToCurrency(toCurrency);
+
+    const rate = await getCurrencyRate(fromCurrency, toCurrency);
+    setRate(rate);
   };
+
+  useEffect(() => {
+    getSelection();
+  }, []);
 
   return (
     <>
       <div className="min-w-[300px] p-4">
-        <p className="mb-2">Translate USD to JPY</p>
+        <p className="mb-2">
+          Translate from {fromCurrency} to {toCurrency}
+        </p>
         <div className="px-2 text-center">
           <p className="whitespace-nowrap text-3xl font-bold">
-            10 USD = 2000 JPY
+            {selectedMoney} {fromCurrency} ≒ {translatedMoney} {toCurrency}
           </p>
         </div>
         <div className="grid place-items-end mt-2 pt-2 border-t border-gray text-xs text-gray">
-          <p>1 USD = 156 JPY (2023-05-24)</p>
+          {rate && (
+            <p>
+              1 {fromCurrency} = {rate.value} {toCurrency} ({rate.date})
+            </p>
+          )}
           <p>
             <a
               className="underline"
               href="https://github.com/fawazahmed0/currency-api"
               target="_top"
-              onClick={handleLinkClick}
+              onClick={(e) => openLink(e.currentTarget.href)}
             >
               Free Currency Rates API
             </a>
