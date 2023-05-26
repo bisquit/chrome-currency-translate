@@ -21,14 +21,6 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   switch (info.menuItemId) {
     case 'translate_selected_money':
       console.log('translate clicked', tab);
-      // await chrome.action.openPopup();
-      // chrome.action.setPopup({ tabId: tab.id, popup: 'index.html' });
-      // await chrome.scripting.executeScript({
-      //   target: { tabId: tab.id },
-      //   func: () => {
-      //     console.log('content');
-      //   },
-      // });
       break;
   }
 });
