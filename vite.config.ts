@@ -10,7 +10,7 @@ const manifest = defineManifest({
   action: {
     default_popup: 'index.html',
   },
-  permissions: ['contextMenus', 'activeTab', 'scripting'],
+  permissions: ['contextMenus', 'activeTab', 'scripting', 'storage'],
   // background: {
   //   service_worker: 'src/background.tsx',
   //   type: 'module',

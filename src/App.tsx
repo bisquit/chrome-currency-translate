@@ -1,19 +1,47 @@
 import { useCurrencyTranslate } from './App.hook';
+import { CurrencyCode, getAllCurrencyCodes } from './core/currencies';
+import { Config, setConfig } from './utils/chrome/config';
 import { openLink } from './utils/chrome/open-link';
 
-function App() {
-  const { fromMoney, toCurrency, toAmount, rate } = useCurrencyTranslate();
+type AppProps = {
+  config: Config;
+};
+
+export default function App({ config }: AppProps) {
+  const { fromMoney, toCurrency, toAmount, rate, changeToCurrencyCode } =
+    useCurrencyTranslate({
+      defaultToCurrencyCode: config.toCurrencyCode,
+    });
+
+  const allCurrencyCodes = getAllCurrencyCodes();
+
+  const handleToCurrencyCodeChange = (code: CurrencyCode) => {
+    changeToCurrencyCode(code);
+    setConfig({ toCurrencyCode: code });
+  };
 
   return (
     <>
-      <div className="min-w-[300px] p-4">
+      <div className="min-w-[360px] p-4">
         {fromMoney ? (
           <>
-            <p className="mb-2">
-              Translate from {fromMoney.currency.code} to {toCurrency.code}
-            </p>
+            <div className="mb-2 flex">
+              <div className="flex gap-1">
+                <span>Translate to:</span>
+                <select
+                  defaultValue={config.toCurrencyCode}
+                  onChange={(e) =>
+                    handleToCurrencyCodeChange(e.target.value as CurrencyCode)
+                  }
+                >
+                  {allCurrencyCodes.map((code) => (
+                    <option value={code}>{code}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
             <div className="px-2 text-center">
-              <p className="whitespace-nowrap text-3xl font-bold">
+              <p className="whitespace-nowrap text-2xl font-bold">
                 {fromMoney.amount}&nbsp;{fromMoney.currency.code} = {toAmount}
                 &nbsp;{toCurrency.code}
               </p>
@@ -48,5 +76,3 @@ function App() {
     </>
   );
 }
-
-export default App;

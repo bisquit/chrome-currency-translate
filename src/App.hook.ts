@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Currency, getCurrencyFromCode } from './core/currencies';
+import { Currency, CurrencyCode, getCurrencyFromCode } from './core/currencies';
 import { Money, Rate } from './core/types';
 import { createMoneyFromString } from './usecases/create-money-from-string';
 import { translateMoney } from './usecases/translate-money';
 import { requestSelection } from './utils/chrome/send-message';
 
-export function useCurrencyTranslate() {
+export function useCurrencyTranslate(config: {
+  defaultToCurrencyCode: CurrencyCode;
+}) {
   const [selection, setSelection] = useState('');
   const [fromMoney, setFromMoney] = useState<Money>();
   const [toCurrency, setToCurrency] = useState<Currency>(
-    getCurrencyFromCode('JPY')
+    getCurrencyFromCode(config.defaultToCurrencyCode)
   );
   const [toAmount, setToAmount] = useState<number>();
   const [rate, setRate] = useState<Rate>();
@@ -38,10 +40,15 @@ export function useCurrencyTranslate() {
     initialize();
   }, [initialize]);
 
+  const changeToCurrencyCode = (code: CurrencyCode) => {
+    setToCurrency(getCurrencyFromCode(code));
+  };
+
   return {
     fromMoney,
     toCurrency,
     toAmount,
     rate,
+    changeToCurrencyCode,
   };
 }

@@ -27,6 +27,10 @@ export type Currency = (typeof currencies)[number];
 export type CurrencyCode = (typeof currencies)[number]['code'];
 export type CurrencySymbol = (typeof currencies)[number]['symbol'];
 
+export function getAllCurrencyCodes() {
+  return currencies.map((v) => v.code);
+}
+
 export function getCurrencyFromCode(code: CurrencyCode): Currency {
   const currency = currencies.find((v) => v.code === code);
   invariant(currency);
