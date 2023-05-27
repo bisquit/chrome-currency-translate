@@ -1,19 +1,8 @@
-console.log('content script here');
-
-type HELLO = {
-  type: 'CURRENCY_TRANSLATE.HELLO';
-};
-
-function isExtensionRequest(request: any): request is HELLO {
-  if (request.type === 'CURRENCY_TRANSLATE.HELLO') {
-    return true;
-  }
-  return false;
-}
+import { messageTypes } from './utils/chrome/send-message';
 
 chrome.runtime.onMessage.addListener(function (request, _sender, sendResponse) {
-  if (isExtensionRequest(request)) {
+  if (request.type === messageTypes.REQUEST_SELECTION) {
     const selection = window.getSelection()?.toString();
-    sendResponse({ selection });
+    sendResponse(selection);
   }
 });

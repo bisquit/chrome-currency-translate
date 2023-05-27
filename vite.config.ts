@@ -11,10 +11,10 @@ const manifest = defineManifest({
     default_popup: 'index.html',
   },
   permissions: ['contextMenus', 'activeTab', 'scripting'],
-  background: {
-    service_worker: 'src/background.tsx',
-    type: 'module',
-  },
+  // background: {
+  //   service_worker: 'src/background.tsx',
+  //   type: 'module',
+  // },
   content_scripts: [
     {
       js: ['src/content-script.tsx'],
