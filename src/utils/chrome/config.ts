@@ -12,13 +12,6 @@ export async function setConfig(config: Partial<Config>) {
 
 export async function getConfig(): Promise<Partial<Config> | undefined> {
   const config = (await chrome.storage.sync.get('config')).config;
-
-  // sanitize configs.
-  // const obsoleteKeys = Object.keys(userConfig).filter(
-  //   (v) => !configKeys.includes(v)
-  // );
-  // await chrome.storage.sync.remove(obsoleteKeys);
-
   return config;
 }
 
