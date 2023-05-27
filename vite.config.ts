@@ -7,6 +7,7 @@ const manifest = defineManifest({
   manifest_version: 3,
   name: 'Currency Translate',
   version: '0.0.0',
+  description: 'Translate money to the specific currency',
   action: {
     default_popup: 'index.html',
   },
