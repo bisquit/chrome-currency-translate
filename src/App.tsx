@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { createCurrencyFromString } from './usecases/create-currency-from-string';
 import { getCurrentTab } from './utils/chrome/get-current-tab';
 import { openLink } from './utils/chrome/open-link';
 import { getCurrencyRate } from './utils/get-currency-rate';
@@ -28,16 +29,22 @@ function App() {
     });
 
     // TODO: sanitize, retrive from currency
+    const currency = createCurrencyFromString(selection);
 
-    const selectedMoney = 8.25;
-    const fromCurrency = 'usd';
-    const toCurrency = 'jpy';
+    const selectedMoney = currency.amount;
+    const fromCurrency = currency.code;
+    const toCurrency = 'JPY';
     setSelectedMoney(selectedMoney);
     setFromCurrency(fromCurrency);
     setToCurrency(toCurrency);
 
-    const rate = await getCurrencyRate(fromCurrency, toCurrency);
-    setRate(rate);
+    if (fromCurrency && toCurrency) {
+      const rate = await getCurrencyRate(
+        fromCurrency.toLowerCase(),
+        toCurrency.toLowerCase()
+      );
+      setRate(rate);
+    }
   };
 
   useEffect(() => {
@@ -58,7 +65,8 @@ function App() {
         <div className="grid place-items-end mt-2 pt-2 border-t border-gray text-xs text-gray">
           {rate && (
             <p>
-              1 {fromCurrency} = {rate.value} {toCurrency} ({rate.date})
+              1&nbsp;{fromCurrency} = {rate.value}&nbsp;{toCurrency} (
+              {rate.date})
             </p>
           )}
           <p>
