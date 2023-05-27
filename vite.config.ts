@@ -1,12 +1,16 @@
 import { crx, defineManifest } from '@crxjs/vite-plugin';
 import react from '@vitejs/plugin-react';
+import { $ } from 'execa';
 import UnoCSS from 'unocss/vite';
 import { defineConfig } from 'vite';
+
+const { stdout: versionStr } = $.sync`npm pkg get version`;
+const version = JSON.parse(versionStr);
 
 const manifest = defineManifest({
   manifest_version: 3,
   name: 'Currency Translate',
-  version: '0.0.0',
+  version: version,
   description: 'Translate money to the specific currency',
   action: {
     default_popup: 'index.html',
