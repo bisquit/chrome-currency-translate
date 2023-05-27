@@ -10,4 +10,8 @@ Go to chrome://extensions and 「Load unpacked」, select `dist`.
 
 ## publish
 
-TBD
+```sh
+pnpm package
+```
+
+Upload zip to store.

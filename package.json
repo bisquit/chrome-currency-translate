@@ -8,7 +8,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "test": "vitest"
+    "test": "vitest",
+    "package": "pnpm build && pnpm zip",
+    "zip": "npm pkg get name version | jq '.name + \"-\" + .version' | xargs -I _name_ zip -r _name_.zip dist"
   },
   "dependencies": {
     "@types/chrome": "^0.0.236",
