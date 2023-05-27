@@ -27,4 +27,7 @@ const manifest = defineManifest({
 
 export default defineConfig({
   plugins: [react(), UnoCSS(), crx({ manifest })],
+  build: {
+    target: 'esnext',
+  },
 });
