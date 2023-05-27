@@ -1,4 +1,4 @@
-import { useCurrencyTranslate } from './usecases/use-currency-translate';
+import { useCurrencyTranslate } from './App.hook';
 import { openLink } from './utils/chrome/open-link';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
             </p>
             <div className="px-2 text-center">
               <p className="whitespace-nowrap text-3xl font-bold">
-                {fromMoney.amount}&nbsp;{fromMoney.currency.code} ≒ {toAmount}
+                {fromMoney.amount}&nbsp;{fromMoney.currency.code} = {toAmount}
                 &nbsp;{toCurrency.code}
               </p>
             </div>

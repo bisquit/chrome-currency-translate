@@ -1,18 +1,25 @@
-type GetCurrencyRateResponse = {
+import { CurrencyCode } from './currencies';
+import { Rate } from './types';
+
+type GetCurrencyRateApiResponse = {
+  [code: string]: number;
+} & {
   date: string;
-  value: number;
 };
 
 export async function getCurrencyRate(
-  from: string,
-  to: string
-): Promise<GetCurrencyRateResponse> {
+  from: CurrencyCode,
+  to: CurrencyCode
+): Promise<Rate> {
+  const loweredFrom = from.toLowerCase();
+  const loweredTo = to.toLowerCase();
+
   const res = await fetch(
-    `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${from}/${to}.json`
+    `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${loweredFrom}/${loweredTo}.json`
   );
-  const json = await res.json();
+  const json = (await res.json()) as GetCurrencyRateApiResponse;
   return {
     date: json.date,
-    value: json[to],
+    value: json[loweredTo],
   };
 }
