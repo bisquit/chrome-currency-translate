@@ -9,16 +9,37 @@ export function extractMoneyComponents(str: string) {
 
   const regex = createRegExp(
     maybe(anyOf(...symbolPatterns).groupedAs('symbolPrefix')),
-    oneOrMore(digit)
+    maybe(' '),
+    oneOrMore(anyOf(digit, ','))
       .and(maybe('.', oneOrMore(digit)))
       .groupedAs('amount'),
+    maybe(' '),
     maybe(anyOf(...symbolPatterns).groupedAs('symbolPostfix'))
   );
 
   const match = str.match(regex);
+  if (!match) {
+    return {
+      symbol: undefined,
+      amount: undefined,
+    };
+  }
+
+  const symbol = match.groups.symbolPrefix || match.groups.symbolPostfix;
+
+  const amount =
+    match.groups.amount !== undefined
+      ? sanitizeAmount(match.groups.amount)
+      : undefined;
 
   return {
-    symbol: match?.groups.symbolPrefix || match?.groups.symbolPostfix,
-    amount: match?.groups.amount ? Number(match.groups.amount) : undefined,
+    symbol,
+    amount,
   };
+}
+
+function sanitizeAmount(strAmount: string): number {
+  const strResult = strAmount.replaceAll(',', '');
+  const numResult = Number(strResult);
+  return numResult;
 }
