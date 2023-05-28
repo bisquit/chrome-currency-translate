@@ -9,6 +9,7 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "test": "vitest",
+    "test:ci": "vitest run",
     "typecheck": "tsc --noEmit && echo 'Type checking passed!'",
     "validate": "run-p lint typecheck --print-label --continue-on-error",
     "package": "pnpm build && pnpm zip",
