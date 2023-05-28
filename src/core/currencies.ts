@@ -19,7 +19,7 @@ export const currencies = [
   {
     code: 'JPY',
     symbol: '¥',
-    symbolPatterns: ['¥', '円'],
+    symbolPatterns: ['¥', '￥', '円'],
   },
 ] as const;
 
