@@ -1,4 +1,5 @@
 import { describe, expect, test } from 'vitest';
+
 import { extractMoneyComponents } from './extract-money-components';
 
 test('only amount', async () => {

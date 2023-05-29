@@ -1,9 +1,9 @@
+import './tailwind.css';
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
 
-import '@unocss/reset/tailwind.css';
-import 'virtual:uno.css';
+import App from './App.tsx';
 import { getConfigWithDefault } from './utils/chrome/config.ts';
 
 const config = await getConfigWithDefault();

@@ -1,7 +1,6 @@
 import { crx, defineManifest } from '@crxjs/vite-plugin';
 import react from '@vitejs/plugin-react';
 import { $ } from 'execa';
-import UnoCSS from 'unocss/vite';
 import { defineConfig } from 'vite';
 
 const { stdout: versionStr } = $.sync`npm pkg get version`;
@@ -30,7 +29,7 @@ const manifest = defineManifest({
 });
 
 export default defineConfig({
-  plugins: [react(), UnoCSS(), crx({ manifest })],
+  plugins: [react(), crx({ manifest })],
   build: {
     target: 'esnext',
   },

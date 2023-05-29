@@ -1,4 +1,5 @@
 import { round } from 'number-precision';
+
 import { CurrencyCode } from '../core/currencies';
 import { getCurrencyRate } from '../core/get-currency-rate';
 import { Money, Rate } from '../core/types';

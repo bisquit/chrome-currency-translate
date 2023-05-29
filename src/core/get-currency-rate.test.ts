@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest';
+
 import { getCurrencyRate } from './get-currency-rate';
 
 test('getCurrencyRate', async () => {

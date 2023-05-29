@@ -22,13 +22,14 @@ export default function App({ config }: AppProps) {
 
   return (
     <>
-      <div className="min-w-[360px] p-4">
+      <div className="min-w-[360px] bg-[#333c51] p-4 text-[#04b8cc]">
         {fromMoney ? (
           <>
             <div className="mb-2 flex">
-              <div className="flex gap-1">
+              <div className="flex items-center gap-1">
                 <span>Translate to:</span>
                 <select
+                  className="select-ghost select select-xs"
                   defaultValue={config.toCurrencyCode}
                   onChange={(e) =>
                     handleToCurrencyCodeChange(e.target.value as CurrencyCode)
@@ -46,7 +47,7 @@ export default function App({ config }: AppProps) {
                 &nbsp;{toCurrency.code}
               </p>
             </div>
-            <div className="grid place-items-end mt-2 pt-2 border-t border-gray text-xs text-gray">
+            <div className="border-gray text-gray mt-2 grid place-items-end border-t pt-2 text-xs">
               {rate && (
                 <p>
                   1&nbsp;{fromMoney.currency.code} = {rate.value}&nbsp;

@@ -1,4 +1,5 @@
 import { anyOf, createRegExp, digit, maybe, oneOrMore } from 'magic-regexp';
+
 import { currencies } from '../core/currencies';
 
 /**
