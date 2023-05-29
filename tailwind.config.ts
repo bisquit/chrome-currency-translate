@@ -1,3 +1,5 @@
+import typography from '@tailwindcss/typography';
+import daisyui from 'daisyui';
 import { Config } from 'tailwindcss';
 
 export default {
@@ -5,8 +7,9 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [
-    //require('@tailwindcss/forms'),
-    require('daisyui'),
-  ],
+  plugins: [typography, daisyui],
+  daisyui: {
+    themes: ['corporate', 'night'],
+    darkTheme: 'night',
+  },
 } satisfies Config;
