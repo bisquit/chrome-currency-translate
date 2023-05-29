@@ -8,8 +8,8 @@ alphabetical order
 
 | currency | status |
 | -------- | ------ |
-| AUD      | TODO   |
-| CAD      | TODO   |
+| AUD      | ✅   |
+| CAD      | ✅   |
 | EUR      | ✅     |
 | GBP      | TODO   |
 | JPY      | ✅     |
