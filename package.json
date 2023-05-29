@@ -50,6 +50,12 @@
     "vite": "^4.3.2",
     "vitest": "^0.31.1"
   },
+  "postcss": {
+    "plugins": {
+      "tailwindcss": {},
+      "autoprefixer": {}
+    }
+  },
   "prettier": {
     "editorconfig": true,
     "singleQuote": true,
