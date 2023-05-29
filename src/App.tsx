@@ -46,19 +46,23 @@ export default function App({ config }: AppProps) {
             <div className="px-2 text-center">
               <p className="whitespace-nowrap text-2xl tracking-wide">
                 <span className="font-bold text-primary">
-                  {fromMoney.amount}&nbsp;{fromMoney.currency.code}
+                  {fromMoney.amount.toLocaleString()}&nbsp;
+                  {fromMoney.currency.code}
                 </span>
                 <span>&nbsp;&nbsp;=&nbsp;&nbsp;</span>
-                <span className="font-bold text-primary">
-                  {toAmount}&nbsp;{toCurrency.code}
-                </span>
+                {toAmount && (
+                  <span className="font-bold text-primary">
+                    {toAmount.toLocaleString()}&nbsp;{toCurrency.code}
+                  </span>
+                )}
               </p>
             </div>
             <div className="mb-2 mt-3 border-t border-base-content border-opacity-80 opacity-80"></div>
             <div className="grid place-items-end text-xs text-base-content text-opacity-80">
               {rate && (
                 <p>
-                  1&nbsp;{fromMoney.currency.code} = {rate.value}&nbsp;
+                  1&nbsp;{fromMoney.currency.code} ={' '}
+                  {rate.value.toLocaleString()}&nbsp;
                   {toCurrency.code} ({rate.date})
                 </p>
               )}
