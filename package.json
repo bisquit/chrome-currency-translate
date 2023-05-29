@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "@types/chrome": "^0.0.236",
-    "@unocss/reset": "^0.52.2",
     "daisyui": "^2.52.0",
     "magic-regexp": "^0.7.0",
     "number-precision": "^1.6.0",
@@ -33,7 +32,6 @@
     "@types/react-dom": "^18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.57.1",
     "@typescript-eslint/parser": "^5.57.1",
-    "@unocss/preset-uno": "^0.52.3",
     "@vitejs/plugin-react": "^4.0.0",
     "autoprefixer": "^10.4.14",
     "eslint": "^8.38.0",
@@ -47,7 +45,6 @@
     "prettier-plugin-tailwindcss": "^0.3.0",
     "tailwindcss": "^3.3.2",
     "typescript": "^5.0.2",
-    "unocss": "^0.52.1",
     "vite": "^4.3.2",
     "vitest": "^0.31.1"
   },
