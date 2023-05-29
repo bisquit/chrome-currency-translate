@@ -19,6 +19,8 @@ export async function getCurrencyRate(
   );
   const json = (await res.json()) as GetCurrencyRateApiResponse;
   return {
+    from,
+    to,
     date: json.date,
     value: json[loweredTo],
   };

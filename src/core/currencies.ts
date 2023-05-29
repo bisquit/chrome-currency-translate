@@ -3,33 +3,39 @@ import invariant from 'tiny-invariant';
 /**
  * code - ISO 4217 currency codes
  * symbol - currency symbol
- * symbolPatterns - allowed symbols for the currency
+ * prefixSymbolPatterns - allowed symbols for the currency (prefixed)
+ * postfixSymbolPatterns - allowed symbols for the currency (postfixed)
  */
 export const currencies = [
   {
     code: 'USD',
     symbol: '$',
-    symbolPatterns: ['$', 'US$'],
+    prefixSymbolPatterns: ['$', 'US$'],
+    postfixSymbolPatterns: [],
   },
   {
     code: 'AUD',
     symbol: 'A$',
-    symbolPatterns: ['A$'],
+    prefixSymbolPatterns: ['A$'],
+    postfixSymbolPatterns: [],
   },
   {
     code: 'CAD',
     symbol: 'C$',
-    symbolPatterns: ['C$'],
+    prefixSymbolPatterns: ['C$'],
+    postfixSymbolPatterns: [],
   },
   {
     code: 'EUR',
     symbol: '€',
-    symbolPatterns: ['€'],
+    prefixSymbolPatterns: ['€'],
+    postfixSymbolPatterns: [],
   },
   {
     code: 'JPY',
     symbol: '¥',
-    symbolPatterns: ['¥', '￥', '円'],
+    prefixSymbolPatterns: ['¥', '￥'],
+    postfixSymbolPatterns: ['円'],
   },
 ] as const;
 
@@ -54,8 +60,10 @@ export function getCurrencyFromSymbol(symbol: CurrencySymbol): Currency {
 }
 
 export function getCurrencyFromSymbolPatterns(symbol: string) {
-  const currency = currencies.find((v) =>
-    v.symbolPatterns.some((p) => p === symbol)
+  const currency = currencies.find(
+    (v) =>
+      v.prefixSymbolPatterns.some((p) => p === symbol) ||
+      v.postfixSymbolPatterns.some((p) => p === symbol)
   );
   invariant(currency);
   return currency;

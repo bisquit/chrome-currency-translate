@@ -3,25 +3,21 @@ import { extractMoneyComponents } from '../core/extract-money-components';
 import { Money } from '../core/types';
 
 /**
- * Create money instance from given string.
+ * Create money instances from given string.
  */
 export async function createMoneyFromString(
   string: string
-): Promise<Money | undefined> {
-  const { amount, symbol } = extractMoneyComponents(string);
+): Promise<Money[] | undefined> {
+  const result = extractMoneyComponents(string);
 
-  if (amount === undefined) {
+  if (result.length === 0) {
     return;
   }
 
-  if (symbol === undefined) {
-    return;
-  }
+  const money = result.map((v) => ({
+    amount: v.amount,
+    currency: getCurrencyFromSymbolPatterns(v.symbol),
+  }));
 
-  console.log('symbol', symbol);
-
-  return {
-    amount,
-    currency: getCurrencyFromSymbolPatterns(symbol),
-  };
+  return money;
 }

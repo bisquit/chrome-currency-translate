@@ -10,12 +10,12 @@ export function useCurrencyTranslate(config: {
   defaultToCurrencyCode: CurrencyCode;
 }) {
   const [selection, setSelection] = useState('');
-  const [fromMoney, setFromMoney] = useState<Money>();
   const [toCurrency, setToCurrency] = useState<Currency>(
     getCurrencyFromCode(config.defaultToCurrencyCode)
   );
-  const [toAmount, setToAmount] = useState<number>();
-  const [rate, setRate] = useState<Rate>();
+  const [rows, setRows] = useState<
+    { fromMoney: Money; rate: Rate; toAmount: number }[]
+  >([]);
 
   const initialize = useCallback(async () => {
     const selection = await requestSelection();
@@ -25,15 +25,22 @@ export function useCurrencyTranslate(config: {
   useEffect(() => {
     (async () => {
       const money = await createMoneyFromString(selection);
-      setFromMoney(money);
-
       if (!money) {
+        setRows([]);
         return;
       }
 
-      const { rate, result } = await translateMoney(money, toCurrency.code);
-      setRate(rate);
-      setToAmount(result);
+      const rows = await Promise.all(
+        money.map(async (v) => {
+          const { rate, result } = await translateMoney(v, toCurrency.code);
+          return {
+            fromMoney: v,
+            rate,
+            toAmount: result,
+          };
+        })
+      );
+      setRows(rows);
     })();
   }, [selection, toCurrency]);
 
@@ -46,10 +53,8 @@ export function useCurrencyTranslate(config: {
   };
 
   return {
-    fromMoney,
+    rows,
     toCurrency,
-    toAmount,
-    rate,
     changeToCurrencyCode,
   };
 }

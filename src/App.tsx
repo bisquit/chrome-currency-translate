@@ -1,5 +1,6 @@
 import { useCurrencyTranslate } from './App.hook';
 import { CurrencyCode, getAllCurrencyCodes } from './core/currencies';
+import { Rate } from './core/types';
 import { Config, setConfig } from './utils/chrome/config';
 import { openLink } from './utils/chrome/open-link';
 
@@ -8,12 +9,19 @@ type AppProps = {
 };
 
 export default function App({ config }: AppProps) {
-  const { fromMoney, toCurrency, toAmount, rate, changeToCurrencyCode } =
-    useCurrencyTranslate({
-      defaultToCurrencyCode: config.toCurrencyCode,
-    });
+  const { rows, toCurrency, changeToCurrencyCode } = useCurrencyTranslate({
+    defaultToCurrencyCode: config.toCurrencyCode,
+  });
 
   const allCurrencyCodes = getAllCurrencyCodes();
+
+  // dedupe rate
+  const rates = rows.reduce<Rate[]>((acc, row) => {
+    if (acc.some((v) => v.from === row.rate.from)) {
+      return acc;
+    }
+    return [...acc, row.rate];
+  }, []);
 
   const handleToCurrencyCodeChange = (code: CurrencyCode) => {
     changeToCurrencyCode(code);
@@ -23,7 +31,7 @@ export default function App({ config }: AppProps) {
   return (
     <>
       <div className="min-w-[360px] p-4">
-        {fromMoney ? (
+        {rows.length > 0 ? (
           <>
             <div className="mb-2 flex">
               <div className="flex items-center gap-2">
@@ -43,29 +51,28 @@ export default function App({ config }: AppProps) {
                 </select>
               </div>
             </div>
-            <div className="px-2 text-center">
-              <p className="whitespace-nowrap text-2xl tracking-wide">
-                <span className="font-bold text-primary">
-                  {fromMoney.amount.toLocaleString()}&nbsp;
-                  {fromMoney.currency.code}
-                </span>
-                <span>&nbsp;&nbsp;=&nbsp;&nbsp;</span>
-                {toAmount && (
+            <div className="grid place-content-center place-items-start gap-1 px-2 text-center">
+              {rows.map((row) => (
+                <p className="whitespace-nowrap text-2xl tracking-wide">
                   <span className="font-bold text-primary">
-                    {toAmount.toLocaleString()}&nbsp;{toCurrency.code}
+                    {row.fromMoney.amount.toLocaleString()}&nbsp;
+                    {row.fromMoney.currency.code}
                   </span>
-                )}
-              </p>
+                  <span>&nbsp;&nbsp;=&nbsp;&nbsp;</span>
+                  <span className="font-bold text-primary">
+                    {row.toAmount.toLocaleString()}&nbsp;{toCurrency.code}
+                  </span>
+                </p>
+              ))}
             </div>
             <div className="mb-2 mt-3 border-t border-base-content border-opacity-80 opacity-80"></div>
             <div className="grid place-items-end text-xs text-base-content text-opacity-80">
-              {rate && (
+              {rates.map((rate) => (
                 <p>
-                  1&nbsp;{fromMoney.currency.code} ={' '}
-                  {rate.value.toLocaleString()}&nbsp;
+                  1&nbsp;{rate.from} = {rate.value.toLocaleString()}&nbsp;
                   {toCurrency.code} ({rate.date})
                 </p>
-              )}
+              ))}
               <p>
                 <a
                   className="link"
