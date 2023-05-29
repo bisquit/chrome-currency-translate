@@ -9,7 +9,17 @@ export const currencies = [
   {
     code: 'USD',
     symbol: '$',
-    symbolPatterns: ['$'],
+    symbolPatterns: ['$', 'US$'],
+  },
+  {
+    code: 'AUD',
+    symbol: 'A$',
+    symbolPatterns: ['A$'],
+  },
+  {
+    code: 'CAD',
+    symbol: 'C$',
+    symbolPatterns: ['C$'],
   },
   {
     code: 'EUR',

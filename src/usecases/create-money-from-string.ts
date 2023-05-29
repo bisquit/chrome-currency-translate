@@ -18,6 +18,8 @@ export async function createMoneyFromString(
     return;
   }
 
+  console.log('symbol', symbol);
+
   return {
     amount,
     currency: getCurrencyFromSymbolPatterns(symbol),

@@ -26,16 +26,35 @@ test('comma separator', async () => {
   });
 });
 
-test('space between currency and amount', async () => {
-  const preSymbol = extractMoneyComponents('$ 100');
-  expect(preSymbol).toEqual({
+test('space or line breaks between currency and amount', async () => {
+  const actual = extractMoneyComponents('$ 100');
+  expect(actual).toEqual({
     amount: 100,
     symbol: '$',
   });
 
-  const postSymbol = extractMoneyComponents('100,000 円');
-  expect(postSymbol).toEqual({
+  const actual2 = extractMoneyComponents('100,000    円');
+  expect(actual2).toEqual({
     amount: 100000,
+    symbol: '円',
+  });
+
+  const actual3 = extractMoneyComponents(`
+    A
+    $6
+  `);
+  expect(actual3).toEqual({
+    amount: 6,
+    symbol: 'A$',
+  });
+
+  const actual4 = extractMoneyComponents(`
+    100
+    
+        円
+  `);
+  expect(actual4).toEqual({
+    amount: 100,
     symbol: '円',
   });
 });
@@ -46,6 +65,33 @@ describe('USD', () => {
     expect(actual).toEqual({
       amount: 8.25,
       symbol: '$',
+    });
+  });
+  test('US$', async () => {
+    const actual = extractMoneyComponents('US$8.25');
+    expect(actual).toEqual({
+      amount: 8.25,
+      symbol: 'US$',
+    });
+  });
+});
+
+describe('AUD', () => {
+  test('A$', async () => {
+    const actual = extractMoneyComponents('A$8.25');
+    expect(actual).toEqual({
+      amount: 8.25,
+      symbol: 'A$',
+    });
+  });
+});
+
+describe('CAD', () => {
+  test('C$', async () => {
+    const actual = extractMoneyComponents('C$8.25');
+    expect(actual).toEqual({
+      amount: 8.25,
+      symbol: 'C$',
     });
   });
 });

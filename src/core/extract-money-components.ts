@@ -1,4 +1,12 @@
-import { anyOf, createRegExp, digit, maybe, oneOrMore } from 'magic-regexp';
+import {
+  anyOf,
+  carriageReturn,
+  createRegExp,
+  digit,
+  linefeed,
+  maybe,
+  oneOrMore,
+} from 'magic-regexp';
 
 import { currencies } from '../core/currencies';
 
@@ -6,19 +14,25 @@ import { currencies } from '../core/currencies';
  * Return money related components from string
  */
 export function extractMoneyComponents(str: string) {
+  // remove any spacing or line breaks
+  // this is for some cases like space between symbol (e.g. `A $`)
+  // also, it makes more simple for match pattern regex
+  const sanitizedStr = str.replace(
+    createRegExp(anyOf(' ', linefeed, carriageReturn), ['g', 'm']),
+    ''
+  );
+
   const symbolPatterns = currencies.flatMap((v) => v.symbolPatterns);
 
   const regex = createRegExp(
     maybe(anyOf(...symbolPatterns).groupedAs('symbolPrefix')),
-    maybe(' '),
     oneOrMore(anyOf(digit, ','))
       .and(maybe('.', oneOrMore(digit)))
       .groupedAs('amount'),
-    maybe(' '),
     maybe(anyOf(...symbolPatterns).groupedAs('symbolPostfix'))
   );
 
-  const match = str.match(regex);
+  const match = sanitizedStr.match(regex);
   if (!match) {
     return {
       symbol: undefined,
