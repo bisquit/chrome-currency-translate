@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.2](https://github.com/bisquit/chrome-currency-translate/compare/v0.0.1...v0.0.2) (2023-05-29)
+
+
+### Features
+
+* add support for AUD and CAD ([fae077b](https://github.com/bisquit/chrome-currency-translate/commit/fae077b8e1ca5636b0145a26b63479bac953b17b))
+* display locale string ([cb93c8c](https://github.com/bisquit/chrome-currency-translate/commit/cb93c8c18b681edd905e10c42ad460a559a5c3f3))
+* multiselect ([c3cc412](https://github.com/bisquit/chrome-currency-translate/commit/c3cc41220e857b57c4853cb290b62bbcd14d887a))
+
+
+### Bug Fixes
+
+* **core:** Add more currency symbols for JPY ([#3](https://github.com/bisquit/chrome-currency-translate/issues/3)) ([f6ad351](https://github.com/bisquit/chrome-currency-translate/commit/f6ad3517e40c4a4713a21217978fa97d3a8bdf0d))
+
 ## [0.0.1](https://github.com/bisquit/chrome-currency-translate/compare/v0.0.0...v0.0.1) (2023-05-27)
 
 ## 0.0.0 (2023-05-27)
