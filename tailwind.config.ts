@@ -1,4 +1,3 @@
-import typography from '@tailwindcss/typography';
 import daisyui from 'daisyui';
 import { Config } from 'tailwindcss';
 
@@ -7,7 +6,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [typography, daisyui],
+  plugins: [daisyui],
   daisyui: {
     themes: ['corporate', 'night'],
     darkTheme: 'night',

@@ -86,10 +86,17 @@ export default function App({ config }: AppProps) {
             </div>
           </>
         ) : (
-          <div className="prose">
-            <h4>Currency Translate</h4>
-            <h5>1. Select text</h5>
-            <h5>2. Click extension icon</h5>
+          <div>
+            <h2 className="mb-2 text-lg">
+              Chrome Currency Translate Extension
+            </h2>
+            <div className="mb-2">
+              <h3 className="mb-2 text-sm">1. Select text</h3>
+              <img src="/usage01.png" alt="" width="174" height="111" />
+            </div>
+            <div className="mb-2">
+              <h3 className="mb-2 text-sm">2. Click extension icon</h3>
+            </div>
           </div>
         )}
       </div>
