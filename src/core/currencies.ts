@@ -20,6 +20,12 @@ export const currencies = [
     postfixSymbolPatterns: [],
   },
   {
+    code: 'GBP',
+    symbol: '£',
+    prefixSymbolPatterns: ['£'],
+    postfixSymbolPatterns: [],
+  },
+  {
     code: 'CAD',
     symbol: 'C$',
     prefixSymbolPatterns: ['C$'],

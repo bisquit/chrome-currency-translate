@@ -132,6 +132,18 @@ describe('CAD', () => {
   });
 });
 
+describe('GBP', () => {
+  test('£', async () => {
+    const actual = extractMoneyComponents('£4.15');
+    expect(actual).toEqual([
+      {
+        amount: 4.15,
+        symbol: '£',
+      },
+    ]);
+  });
+});
+
 describe('EUR', () => {
   test('€', async () => {
     const actual = extractMoneyComponents('€9.99');
