@@ -51,9 +51,9 @@ export default function App({ config }: AppProps) {
                 </select>
               </div>
             </div>
-            <div className="grid place-content-center place-items-start gap-1 px-2 text-center">
+            <div className="flex flex-col gap-1 px-2 text-center">
               {rows.map((row) => (
-                <p className="whitespace-nowrap text-2xl tracking-wide">
+                <p className="text-2xl tracking-wide">
                   <span className="font-bold text-primary">
                     {row.fromMoney.amount.toLocaleString()}&nbsp;
                     {row.fromMoney.currency.code}
