@@ -4,13 +4,4 @@ Translate money to the specific currency.
 
 ## Supported currencies
 
-alphabetical order
-
-| currency | status |
-| -------- | ------ |
-| AUD      | ✅   |
-| CAD      | ✅   |
-| EUR      | ✅     |
-| GBP      | TODO   |
-| JPY      | ✅     |
-| USD      | ✅     |
+(see here)[src/core/currencies.ts]
