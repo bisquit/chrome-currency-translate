@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [commit-and-tag-version](https://github.com/absolute-version/commit-and-tag-version) for commit guidelines.
 
+## [0.0.3](https://github.com/bisquit/chrome-currency-translate/compare/v0.0.2...v0.0.3) (2023-05-31)
+
+
+### Features
+
+* add support for GBP ([f0ee11c](https://github.com/bisquit/chrome-currency-translate/commit/f0ee11c8671787b3a89c40605cd88bbf3d55f752))
+
+
+### Bug Fixes
+
+* text content overwrap ([9a59e8a](https://github.com/bisquit/chrome-currency-translate/commit/9a59e8a060eb06a2c270a4543bf1a55a5effae50))
+
 ## [0.0.2](https://github.com/bisquit/chrome-currency-translate/compare/v0.0.1...v0.0.2) (2023-05-29)
 
 
