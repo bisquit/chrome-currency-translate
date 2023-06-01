@@ -1,7 +1,7 @@
 {
   "name": "chrome-currency-translate",
   "description": "Quickly translate money to the specific currency.",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "license": "MIT",
   "type": "module",
   "scripts": {
