@@ -15,7 +15,8 @@ export async function getCurrencyRate(
   const loweredTo = to.toLowerCase();
 
   const res = await fetch(
-    `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${loweredFrom}/${loweredTo}.json`
+    `https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/${loweredFrom}/${loweredTo}.json`,
+    { cache: 'no-cache' }
   );
   const json = (await res.json()) as GetCurrencyRateApiResponse;
   return {
