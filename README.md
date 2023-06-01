@@ -2,6 +2,4 @@
 
 Translate money to the specific currency.
 
-## Supported currencies
-
-(see here)[src/core/currencies.ts]
+[Supported currencies](src/core/currencies.ts)
