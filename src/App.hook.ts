@@ -9,7 +9,7 @@ import { requestSelection } from './utils/chrome/send-message';
 export function useCurrencyTranslate(config: {
   defaultToCurrencyCode: CurrencyCode;
 }) {
-  const [selection, setSelection] = useState('');
+  const [selection, setSelection] = useState<string>();
   const [toCurrency, setToCurrency] = useState<Currency>(
     getCurrencyFromCode(config.defaultToCurrencyCode)
   );
@@ -17,6 +17,7 @@ export function useCurrencyTranslate(config: {
     { fromMoney: Money; rate: Rate; toAmount: number }[]
   >([]);
   const [translating, setTranslating] = useState(false);
+  const [money, setMoney] = useState<Money[]>();
 
   const initialize = useCallback(async () => {
     const selection = await requestSelection();
@@ -25,9 +26,23 @@ export function useCurrencyTranslate(config: {
 
   useEffect(() => {
     (async () => {
+      if (!selection) {
+        return;
+      }
+
       const money = await createMoneyFromString(selection);
       if (!money) {
-        setRows([]);
+        setMoney(undefined);
+        return;
+      }
+
+      setMoney(money);
+    })();
+  }, [selection]);
+
+  useEffect(() => {
+    (async () => {
+      if (!money) {
         return;
       }
 
@@ -44,10 +59,10 @@ export function useCurrencyTranslate(config: {
         })
       );
 
-      setRows(rows);
       setTranslating(false);
+      setRows(rows);
     })();
-  }, [selection, toCurrency]);
+  }, [money, toCurrency]);
 
   useEffect(() => {
     initialize();
@@ -61,6 +76,7 @@ export function useCurrencyTranslate(config: {
     rows,
     toCurrency,
     translating,
+    invalidSelection: selection !== undefined && money === undefined,
     changeToCurrencyCode,
   };
 }

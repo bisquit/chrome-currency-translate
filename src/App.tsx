@@ -9,10 +9,15 @@ type AppProps = {
 };
 
 export default function App({ config }: AppProps) {
-  const { rows, toCurrency, translating, changeToCurrencyCode } =
-    useCurrencyTranslate({
-      defaultToCurrencyCode: config.toCurrencyCode,
-    });
+  const {
+    rows,
+    toCurrency,
+    translating,
+    invalidSelection,
+    changeToCurrencyCode,
+  } = useCurrencyTranslate({
+    defaultToCurrencyCode: config.toCurrencyCode,
+  });
 
   const allCurrencyCodes = getAllCurrencyCodes();
 
@@ -32,7 +37,7 @@ export default function App({ config }: AppProps) {
   return (
     <>
       <div className="min-w-[360px] p-4">
-        {rows.length > 0 ? (
+        {!invalidSelection ? (
           <>
             <div className="mb-2 flex">
               <div className="flex items-center gap-2">
