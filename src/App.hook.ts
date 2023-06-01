@@ -16,6 +16,7 @@ export function useCurrencyTranslate(config: {
   const [rows, setRows] = useState<
     { fromMoney: Money; rate: Rate; toAmount: number }[]
   >([]);
+  const [translating, setTranslating] = useState(false);
 
   const initialize = useCallback(async () => {
     const selection = await requestSelection();
@@ -30,6 +31,8 @@ export function useCurrencyTranslate(config: {
         return;
       }
 
+      setTranslating(true);
+
       const rows = await Promise.all(
         money.map(async (v) => {
           const { rate, result } = await translateMoney(v, toCurrency.code);
@@ -40,7 +43,9 @@ export function useCurrencyTranslate(config: {
           };
         })
       );
+
       setRows(rows);
+      setTranslating(false);
     })();
   }, [selection, toCurrency]);
 
@@ -55,6 +60,7 @@ export function useCurrencyTranslate(config: {
   return {
     rows,
     toCurrency,
+    translating,
     changeToCurrencyCode,
   };
 }

@@ -9,9 +9,10 @@ type AppProps = {
 };
 
 export default function App({ config }: AppProps) {
-  const { rows, toCurrency, changeToCurrencyCode } = useCurrencyTranslate({
-    defaultToCurrencyCode: config.toCurrencyCode,
-  });
+  const { rows, toCurrency, translating, changeToCurrencyCode } =
+    useCurrencyTranslate({
+      defaultToCurrencyCode: config.toCurrencyCode,
+    });
 
   const allCurrencyCodes = getAllCurrencyCodes();
 
@@ -52,18 +53,26 @@ export default function App({ config }: AppProps) {
               </div>
             </div>
             <div className="flex flex-col gap-1 px-2 text-center">
-              {rows.map((row) => (
-                <p className="text-2xl tracking-wide">
-                  <span className="font-bold text-primary">
-                    {row.fromMoney.amount.toLocaleString()}&nbsp;
-                    {row.fromMoney.currency.code}
-                  </span>
-                  <span>&nbsp;&nbsp;=&nbsp;&nbsp;</span>
-                  <span className="font-bold text-primary">
-                    {row.toAmount.toLocaleString()}&nbsp;{toCurrency.code}
-                  </span>
-                </p>
-              ))}
+              {translating ? (
+                <div className="grid h-[32px] place-content-center">
+                  <span className="loading-ring loading-md loading"></span>
+                </div>
+              ) : (
+                <>
+                  {rows.map((row) => (
+                    <p className="text-2xl tracking-wide">
+                      <span className="font-bold text-primary">
+                        {row.fromMoney.amount.toLocaleString()}&nbsp;
+                        {row.fromMoney.currency.code}
+                      </span>
+                      <span>&nbsp;&nbsp;=&nbsp;&nbsp;</span>
+                      <span className="font-bold text-primary">
+                        {row.toAmount.toLocaleString()}&nbsp;{toCurrency.code}
+                      </span>
+                    </p>
+                  ))}
+                </>
+              )}
             </div>
             <div className="mb-2 mt-3 border-t border-base-content border-opacity-80 opacity-80"></div>
             <div className="grid place-items-end text-xs text-base-content text-opacity-80">
